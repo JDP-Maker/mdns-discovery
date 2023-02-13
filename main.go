@@ -86,6 +86,7 @@ type MDNSDiscovery struct {
 // Hello handles the pluggable-discovery HELLO command
 func (d *MDNSDiscovery) Hello(userAgent string, protocolVersion int) error {
 	// The mdns library used has some logs statement that we must disable
+	fmt.Println("func hello")
 	log.SetOutput(ioutil.Discard)
 	return nil
 }
