@@ -35,6 +35,7 @@ import (
 )
 
 func main() {
+	fmt.Println("first func main")
 	parseArgs()
 	mdnsDiscovery := &MDNSDiscovery{}
 	disc := discovery.NewServer(mdnsDiscovery)
@@ -54,7 +55,7 @@ const portsTTL = time.Second * 120
 const queryInterval = time.Second * 30
 
 // mdns.Query() will either exit early or timeout after this amount of time
-const queryTimeout = time.Second * 25
+const queryTimeout = time.Second * 10
 
 // IP address used to check if we're connected to a local network
 var ipv4Addr = &net.UDPAddr{
