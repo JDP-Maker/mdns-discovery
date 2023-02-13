@@ -35,7 +35,7 @@ import (
 )
 
 func main() {
-	fmt.Println("first func main")
+	//jdp fmt.Println("first func main")
 	parseArgs()
 	mdnsDiscovery := &MDNSDiscovery{}
 	disc := discovery.NewServer(mdnsDiscovery)
@@ -52,10 +52,10 @@ const mdnsServiceName = "_arduino._tcp"
 const portsTTL = time.Second * 120
 
 // Interval at which we check available network interfaces and call mdns.Query()
-const queryInterval = time.Second * 40
+const queryInterval = time.Second * 30
 
 // mdns.Query() will either exit early or timeout after this amount of time
-const queryTimeout = time.Second * 30
+const queryTimeout = time.Second * 15
 
 // IP address used to check if we're connected to a local network
 var ipv4Addr = &net.UDPAddr{
@@ -86,7 +86,7 @@ type MDNSDiscovery struct {
 // Hello handles the pluggable-discovery HELLO command
 func (d *MDNSDiscovery) Hello(userAgent string, protocolVersion int) error {
 	// The mdns library used has some logs statement that we must disable
-	fmt.Println("func hello")
+	// jdp fmt.Println("func hello")
 	log.SetOutput(ioutil.Discard)
 	return nil
 }
@@ -114,14 +114,14 @@ func (d *MDNSDiscovery) Quit() {
 
 // StartSync handles the pluggable-discovery START_SYNC command
 func (d *MDNSDiscovery) StartSync(eventCB discovery.EventCallback, errorCB discovery.ErrorCallback) error {
-	fmt.Printf("func strt sync")
+	//jdp fmt.Printf("func strt sync")
 	if d.entriesChan != nil {
 		return fmt.Errorf("already syncing")
 	}
 
 	if d.portsCache == nil {
 		// Initialize the cache if not already done
-		fmt.Println("Initialize the cache if not already done")
+		//jdp fmt.Println("Initialize the cache if not already done")
 		d.portsCache = newCache(portsTTL, func(port *discovery.Port) {
 			eventCB("remove", port)
 		})
@@ -129,9 +129,9 @@ func (d *MDNSDiscovery) StartSync(eventCB discovery.EventCallback, errorCB disco
 
 	d.entriesChan = make(chan *mdns.ServiceEntry)
 	go func() {
-		fmt.Printf("d entrieschan %#v", d.entriesChan)
+		//jdp fmt.Printf("d entrieschan %#v", d.entriesChan)
 		for entry := range d.entriesChan {
-			fmt.Printf("entry %#v", entry)
+			// jdp fmt.Printf("entry %#v", entry)
 			port := toDiscoveryPort(entry)
 			if port == nil {
 				continue
