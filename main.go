@@ -48,13 +48,13 @@ const mdnsServiceName = "_arduino._tcp"
 
 // Discovered ports stay alive for this amount of time
 // since the last time they've been found by an mDNS query.
-const portsTTL = time.Second * 60
+const portsTTL = time.Second * 120
 
 // Interval at which we check available network interfaces and call mdns.Query()
 const queryInterval = time.Second * 30
 
 // mdns.Query() will either exit early or timeout after this amount of time
-const queryTimeout = time.Second * 15
+const queryTimeout = time.Second * 25
 
 // IP address used to check if we're connected to a local network
 var ipv4Addr = &net.UDPAddr{
