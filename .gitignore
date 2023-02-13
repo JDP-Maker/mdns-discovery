@@ -1,7 +1,7 @@
 # Build artifacts
-/mdns-discovery
-!/mdns-discovery/
-mdns-discovery.exe
+#/mdns-discovery
+#!/mdns-discovery/
+#mdns-discovery.exe
 __pycache__/
 
 # IDEs
@@ -11,6 +11,6 @@ __pycache__/
 *.code-workspace
 *.sublime-workspace
 
-/dist
+#/dist
 
 /node_modules/
