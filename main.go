@@ -114,12 +114,14 @@ func (d *MDNSDiscovery) Quit() {
 
 // StartSync handles the pluggable-discovery START_SYNC command
 func (d *MDNSDiscovery) StartSync(eventCB discovery.EventCallback, errorCB discovery.ErrorCallback) error {
+	fmt.Printf("func strt sync")
 	if d.entriesChan != nil {
 		return fmt.Errorf("already syncing")
 	}
 
 	if d.portsCache == nil {
 		// Initialize the cache if not already done
+		fmt.Println("Initialize the cache if not already done")
 		d.portsCache = newCache(portsTTL, func(port *discovery.Port) {
 			eventCB("remove", port)
 		})
@@ -127,7 +129,9 @@ func (d *MDNSDiscovery) StartSync(eventCB discovery.EventCallback, errorCB disco
 
 	d.entriesChan = make(chan *mdns.ServiceEntry)
 	go func() {
+		fmt.Printf("d entrieschan %#v", d.entriesChan)
 		for entry := range d.entriesChan {
+			fmt.Printf("entry %#v", entry)
 			port := toDiscoveryPort(entry)
 			if port == nil {
 				continue
